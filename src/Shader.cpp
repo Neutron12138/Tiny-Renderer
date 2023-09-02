@@ -21,18 +21,9 @@ namespace tr
 
     Shader::~Shader()
     {
-        if (data() != 0)
+        if (!is_null())
             glDeleteShader(data());
         data() = 0;
-    }
-
-    GLuint Shader::get_id() const
-    {
-        return data();
-    }
-    bool Shader::is_null() const
-    {
-        return data() == 0;
     }
 
     void Shader::load_from_string(const std::string &source)

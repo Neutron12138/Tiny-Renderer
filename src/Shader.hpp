@@ -3,16 +3,16 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include <GL/glew.h>
-#include "Resource.hpp"
-#include "Utils.hpp"
+#include "GLResource.hpp"
 
 namespace tr
 {
-    class Shader : public Resource<GLuint>
+    class Shader : public GLResource
     {
     public:
-        using ParentType = Resource<GLuint>;
+        using ParentType = GLResource;
 
     private:
         GLenum m_type = GL_NONE;
@@ -23,10 +23,6 @@ namespace tr
         ~Shader();
 
     public:
-        GLuint get_id() const;
-        bool is_null() const;
-
-    public:
         void load_from_string(const std::string &source);
 
     public:
@@ -34,6 +30,8 @@ namespace tr
         static void check_id(GLuint id);
         static void check_error(GLuint id);
     };
+
+    using ShaderRes = std::shared_ptr<Shader>;
 
 } // namespace tr
 

@@ -21,11 +21,14 @@ namespace tr
     std::string to_string(const T &value);
 
     template <typename T, typename... ArgsT>
-    std::string to_string(const T &value, const ArgsT &...args);
+    std::string to_string(const T &value, ArgsT &&...args);
 
     float get_current_clocks();
 
     std::string glenum_to_string(GLenum e);
+
+    template <typename RetT, typename... ArgsT>
+    RetT run_gl_function(RetT (*func)(ArgsT...), ArgsT &&...args);
 
 } // namespace tr
 

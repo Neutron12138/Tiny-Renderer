@@ -12,9 +12,7 @@ public:
 
         tr::log.get() << "Hello TR!" << std::endl;
 
-        tr::NamesInShader n;
-        for (size_t i = 0; i < n.names.size(); i++)
-            std::cout << i << ":" << n.names.at(i) << std::endl;
+        tr::run_gl_function<GLuint, GLenum>(glCreateShader, 0);
     }
 
     void on_draw() override

@@ -8,6 +8,7 @@
 #include "Log.cpp"
 
 #include "Application.cpp"
+#include "GLResource.cpp"
 #include "Shader.cpp"
 #include "Program.cpp"
 

@@ -6,6 +6,7 @@
 #include "Log.hpp"
 
 #include "Application.hpp"
+#include "GLResource.hpp"
 #include "Shader.hpp"
 #include "Program.hpp"
 #include "NamesInShader.hpp"
