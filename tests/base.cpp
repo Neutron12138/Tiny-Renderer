@@ -11,6 +11,10 @@ public:
         init_GL();
 
         tr::log.get() << "Hello TR!" << std::endl;
+
+        tr::NamesInShader n;
+        for (size_t i = 0; i < n.names.size(); i++)
+            std::cout << i << ":" << n.names.at(i) << std::endl;
     }
 
     void on_draw() override

@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <ctime>
+#include <GL/glew.h>
 
 #define TR_DEBUG                        \
     tr::to_string(                      \
@@ -23,6 +24,8 @@ namespace tr
     std::string to_string(const T &value, const ArgsT &...args);
 
     float get_current_clocks();
+
+    std::string glenum_to_string(GLenum e);
 
 } // namespace tr
 

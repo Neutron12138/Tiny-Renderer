@@ -3,6 +3,10 @@
 
 #include "Utils.hpp"
 
+#define TR_GLENUM_TO_STRING(e) \
+    case e:                    \
+        return #e
+
 namespace tr
 {
     std::string to_string()
@@ -39,6 +43,24 @@ namespace tr
         float result = currf / CPS;
 
         return result;
+    }
+
+    std::string glenum_to_string(GLenum e)
+    {
+        switch (e)
+        {
+            TR_GLENUM_TO_STRING(GL_VERTEX_SHADER);
+            TR_GLENUM_TO_STRING(GL_FRAGMENT_SHADER);
+            TR_GLENUM_TO_STRING(GL_GEOMETRY_SHADER);
+            TR_GLENUM_TO_STRING(GL_COMPUTE_SHADER);
+
+        default:
+            throw std::runtime_error(
+                to_string(
+                    TR_DEBUG,
+                    "Invalid enumeration value: ",
+                    e));
+        }
     }
 
 } // namespace tr
