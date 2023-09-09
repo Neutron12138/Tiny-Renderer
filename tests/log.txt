@@ -1,0 +1,2 @@
+Hello TR!
+Initialized successfully!

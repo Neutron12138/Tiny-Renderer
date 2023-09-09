@@ -1,0 +1,73 @@
+// 这是未来要做成的目标
+// 所以叫做“模板”
+// 可能以后会有些不同
+// 但大体是一样的
+
+void on_created()
+{
+    // 创建最基本的渲染器
+    tr::Renderer renderer;
+
+    // 创建一个直射光源
+    tr::DirectionalLight dl;
+    dl.direction = glm::vec3(-1.0f, -1.0f, -1.0f);
+    dl.diffuse_color = glm::vec3(1.0, 1.0, 1.0);
+    dl.specular_color = glm::vec3(1.0, 1.0, 1.0);
+
+    // 加载两张纹理
+    tr::Texture2D tex0;
+    tex0.load_from_file("image0.png");
+    tr::Texture2D tex1;
+    tex1.load_from_file("image1.png");
+
+    // 材质生成器
+    tr::MaterialGenerator mg;
+    // 启用光照
+    mg.enable_lighting = true;
+    // 光照模式，有NORMAL_LIGHTING,NEGATIVE_NORMAL_LIGHTING和DOUBLE_LIGHTING三种
+    mg.lighting_mode = DOUBLE_LIGHTING;
+    // 光照模型，有PHONG_LIGHTING和GOURAUD_LIGHTING两种
+    mg.lighting_model = PHONG_LIGHTING;
+    // 光源数量
+    mg.lights_count = 1;
+    // 纹理数量
+    mg.textures_count = 2;
+    // 颜色，TEXTURES_COLOR_MIX代表所有纹理颜色的混合，除此之外还有
+    // UNIFORM_COLOR,VERTEX_COLOR,TEXTURE0_COLOR-TEXTURE15_COLOR
+    // UNIFORM_MIX_VERTEX_COLOR,TEXTURES_COLOR_ADDED等
+    // UNIFORM_COLOR需要直接填入glm::vec3类型的颜色值
+    mg.ambient_color = TEXTURES_COLOR_MIXED;
+    mg.diffuse_color = TEXTURES_COLOR_MIXED;
+    mg.specular_color = TEXTURES_COLOR_MIXED;
+    // 透明度
+    mg.alpha = 0.5f;
+
+    // 材质
+    tr::MaterialRes mt = tr::make_res<tr::Material>(mg.generate());
+
+    // 其他渲染参数
+    tr::RenderParameters rp;
+    // 启用混合
+    rp.enable_blend = true;
+    // OpenGL里有什么就填什么
+    rp.blend_func = ...;
+
+    // 着色器参数
+    tr::ShaderParameters sp;
+    sp.add_texture(0, tex0);
+    sp.add_texture(1, tex1);
+    sp.add_light(dl);
+
+    // 对象
+    tr::Box box;
+    box.material = mt;
+    box.shader_parameters = sp;
+}
+
+void on_draw()
+{
+    // 设置渲染参数
+    renderer.render_parameters = rp;
+    // 渲染
+    renderer.render(box);
+}
