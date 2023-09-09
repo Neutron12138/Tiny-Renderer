@@ -14,26 +14,6 @@ namespace tr
         return {};
     }
 
-    template <typename T>
-    std::string to_string(const T &value)
-    {
-        std::stringstream sstr;
-        sstr << value;
-        return sstr.str();
-    }
-
-    template <typename T, typename... ArgsT>
-    std::string to_string(const T &value, ArgsT &&...args)
-    {
-        return to_string(value) + to_string(std::forward<ArgsT>(args)...);
-    }
-
-    template <>
-    std::string to_string(const std::string &value)
-    {
-        return value;
-    }
-
     float get_current_clocks()
     {
         const float CPS = static_cast<float>(CLOCKS_PER_SEC);
@@ -68,29 +48,6 @@ namespace tr
                     "Invalid enumeration value: ",
                     e));
         }
-    }
-
-    template <typename RetT, typename... ArgsT>
-    RetT run_gl_function(RetT (*func)(ArgsT...), ArgsT &&...args)
-    {
-        if (func == nullptr)
-            throw std::runtime_error(
-                to_string(
-                    TR_DEBUG,
-                    "Function cannot be a null pointer"));
-
-        RetT result = func(std::forward<ArgsT>(args)...);
-        GLenum error = glGetError();
-
-        if (error != GL_NO_ERROR)
-            throw std::runtime_error(
-                to_string(
-                    TR_DEBUG,
-                    "An error occurred while executing the OpenGL function, error: \"",
-                    glenum_to_string(error),
-                    "\""));
-
-        return result;
     }
 
 } // namespace tr

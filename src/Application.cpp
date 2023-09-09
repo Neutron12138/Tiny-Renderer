@@ -57,15 +57,8 @@ namespace tr
 
     void Application::on_event(const sf::Event &event)
     {
-        switch (event.type)
-        {
-        case sf::Event::Closed:
+        if (need_close(event))
             close_window();
-            break;
-
-        default:
-            break;
-        }
     }
 
     sf::RenderWindow &Application::get_window()
@@ -138,6 +131,7 @@ namespace tr
         m_delta_time = curr - m_last_time;
         m_last_time = curr;
     }
+
     void Application::clear_buffers(GLbitfield mask)
     {
         glClear(mask);
@@ -151,6 +145,17 @@ namespace tr
                 to_string(
                     TR_DEBUG,
                     "Unable to initialize OpenGL"));
+    }
+
+    bool Application::need_close(const sf::Event &event)
+    {
+        if (event.type == sf::Event::Closed)
+            return true;
+        else if ((event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased) &&
+                 event.key.code == sf::Keyboard::Escape)
+            return true;
+        else
+            return false;
     }
 
 } // namespace tr

@@ -48,10 +48,14 @@ namespace tr
         void close_window();
         void window_display();
         void process_event();
-        void clear_buffers(GLbitfield mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        void clear_buffers(GLbitfield mask =
+                               GL_COLOR_BUFFER_BIT |
+                               GL_DEPTH_BUFFER_BIT |
+                               GL_STENCIL_BUFFER_BIT);
 
     public:
         static void init_GL();
+        static bool need_close(const sf::Event &event);
     };
 
 } // namespace tr

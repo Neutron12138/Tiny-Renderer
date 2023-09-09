@@ -4,7 +4,6 @@
 #include "TR.hpp"
 
 #include "Utils.cpp"
-#include "Resource.cpp"
 #include "Log.cpp"
 
 #include "Application.cpp"

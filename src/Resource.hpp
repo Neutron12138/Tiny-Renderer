@@ -2,24 +2,34 @@
 #define TR_RESOURCE_HPP
 
 #include <functional>
+#include "Object.hpp"
 
 namespace tr
 {
     template <typename T>
-    class Resource
+    class Resource : public NonCopyable
     {
     public:
-        using SelfType = Resource<T>;
+        using DataType = T;
+        using SelfType = Resource<DataType>;
 
     private:
-        T m_data;
+        DataType m_data;
 
     public:
-        Resource(const T &data = T());
+        Resource(const DataType &data = T())
+            : NonCopyable(), m_data(data) {}
 
     protected:
-        T &data();
-        const T &data() const;
+        DataType &data()
+        {
+            return m_data;
+        }
+
+        const DataType &data() const
+        {
+            return m_data;
+        }
     };
 
 } // namespace tr

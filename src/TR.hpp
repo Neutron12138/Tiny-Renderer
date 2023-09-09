@@ -1,8 +1,10 @@
 #ifndef TR_HPP
 #define TR_HPP
 
+#include "Object.hpp"
 #include "Utils.hpp"
 #include "Resource.hpp"
+#include "ResourceHolder.hpp"
 #include "Log.hpp"
 
 #include "Application.hpp"

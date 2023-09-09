@@ -3,9 +3,9 @@
 
 #include <string>
 #include <vector>
-#include <memory>
 #include <GL/glew.h>
 #include "GLResource.hpp"
+#include "ResourceHolder.hpp"
 
 namespace tr
 {
@@ -31,7 +31,7 @@ namespace tr
         static void check_error(GLuint id);
     };
 
-    using ShaderRes = std::shared_ptr<Shader>;
+    using ShaderRes = Res<Shader>;
 
 } // namespace tr
 

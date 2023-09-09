@@ -35,27 +35,9 @@ int main(int argc, char *argv[])
     TR_REGISTER_SIGNAL(SIGABRT);
     TR_REGISTER_SIGNAL(SIGABRT2);
 
-    try
-    {
+    TR_TRYS(
         tr::Application &app = get_application();
-        return app.run(argc, argv);
-    }
-    catch (const std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
-    catch (const char *e)
-    {
-        std::cout << e << std::endl;
-    }
-    catch (const std::string &e)
-    {
-        std::cout << e << std::endl;
-    }
-    catch (...)
-    {
-        std::cout << "The program threw an unknown exception" << std::endl;
-    }
+        return app.run(argc, argv);)
 }
 
 #endif
