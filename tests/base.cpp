@@ -3,6 +3,9 @@
 
 class MyApp : public tr::Application
 {
+private:
+    tr::ProgramRes program;
+
 public:
     void on_created() override
     {
@@ -11,6 +14,14 @@ public:
         create_window(glm::ivec2(640, 480), "base");
         init_GL();
         tr::log.get() << "Initialized successfully!" << std::endl;
+
+        tr::log.get() << std::endl;
+        tr::log.get() << tr::get_text_from_file("base.cpp") << std::endl;
+        tr::log.get() << tr::get_bytes_from_file("base.exe").data() << std::endl;
+        tr::log.get() << std::endl;
+
+        program.create();
+        program->compile_from_file("shaders/base.vs", "shaders/base.fs");
     }
 
     void on_draw() override

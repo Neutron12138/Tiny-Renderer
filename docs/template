@@ -23,22 +23,22 @@ void on_created()
     // 材质生成器
     tr::MaterialGenerator mg;
     // 启用光照
-    mg.enable_lighting = true;
+    mg.lighting.enable = true;
     // 光照模式，有NORMAL_LIGHTING,NEGATIVE_NORMAL_LIGHTING和DOUBLE_LIGHTING三种
-    mg.lighting_mode = DOUBLE_LIGHTING;
+    mg.lighting.mode = DOUBLE_LIGHTING;
     // 光照模型，有PHONG_LIGHTING和GOURAUD_LIGHTING两种
-    mg.lighting_model = PHONG_LIGHTING;
+    mg.lighting.model = PHONG_LIGHTING;
     // 光源数量
-    mg.lights_count = 1;
+    mg.lighting.light_count = 1;
     // 纹理数量
-    mg.textures_count = 2;
+    mg.texture.texture_count = 2;
     // 颜色，TEXTURES_COLOR_MIX代表所有纹理颜色的混合，除此之外还有
     // UNIFORM_COLOR,VERTEX_COLOR,TEXTURE0_COLOR-TEXTURE15_COLOR
     // UNIFORM_MIX_VERTEX_COLOR,TEXTURES_COLOR_ADDED等
     // UNIFORM_COLOR需要直接填入glm::vec3类型的颜色值
-    mg.ambient_color = TEXTURES_COLOR_MIXED;
-    mg.diffuse_color = TEXTURES_COLOR_MIXED;
-    mg.specular_color = TEXTURES_COLOR_MIXED;
+    mg.lighting.ambient_color = TEXTURES_COLOR_MIXED;
+    mg.lighting.diffuse_color = TEXTURES_COLOR_MIXED;
+    mg.lighting.specular_color = TEXTURES_COLOR_MIXED;
     // 透明度
     mg.alpha = 0.5f;
 
@@ -69,5 +69,5 @@ void on_draw()
     // 设置渲染参数
     renderer.render_parameters = rp;
     // 渲染
-    renderer.render(box);
+    renderer.render(box, mt, sp);
 }
