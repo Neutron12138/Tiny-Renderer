@@ -17,6 +17,9 @@ namespace tr
 
     using Char = char;
 
+    using SizeT = std::size_t;
+    using EnumT = UInt32;
+
 } // namespace tr
 
 #endif

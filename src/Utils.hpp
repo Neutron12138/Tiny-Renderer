@@ -66,6 +66,8 @@ namespace tr
     float get_current_clocks();
     std::string glenum_to_string(GLenum e);
 
+    std::runtime_error forward_exception(const std::string &debug_info, const std::exception &exception);
+
     std::string get_text_from_stream(std::istream &is);
     std::vector<Char> get_bytes_from_stream(std::istream &is);
 

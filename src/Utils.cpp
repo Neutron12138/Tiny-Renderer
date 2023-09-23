@@ -50,6 +50,16 @@ namespace tr
         }
     }
 
+    std::runtime_error forward_exception(
+        const std::string &debug_info,
+        const std::exception &exception)
+    {
+        return std::runtime_error(
+            to_string(
+                debug_info,
+                exception.what()));
+    }
+
     std::string get_text_from_stream(std::istream &is)
     {
         std::stringstream sstr;

@@ -5,22 +5,27 @@
 
 namespace tr
 {
-    GLResource::GLResource()
-        : Resource<GLuint>() {}
+    GLResource::GLResource(GLuint id)
+        : Resource(), m_data(id) {}
 
-    GLResource::GLResource(GLuint id) : Resource<GLuint>(id)
+    GLuint &GLResource::data()
     {
-        check_id(id);
+        return m_data;
+    }
+
+    const GLuint &GLResource::data() const
+    {
+        return m_data;
     }
 
     GLuint GLResource::get_id() const
     {
-        return data();
+        return m_data;
     }
 
     bool GLResource::is_null() const
     {
-        return data() == 0;
+        return m_data == 0;
     }
 
     void GLResource::check_id(GLuint id)

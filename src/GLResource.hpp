@@ -7,14 +7,20 @@
 
 namespace tr
 {
-    class GLResource : public Resource<GLuint>
+    class GLResource : public Resource
     {
     public:
-        using ParentType = Resource<GLuint>;
+        using ParentType = Resource;
+
+    private:
+        GLuint m_data;
 
     public:
-        GLResource();
-        GLResource(GLuint id);
+        GLResource(GLuint id = 0);
+
+    protected:
+        GLuint &data();
+        const GLuint &data() const;
 
     public:
         GLuint get_id() const;

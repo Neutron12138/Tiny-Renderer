@@ -11,7 +11,7 @@ namespace tr
     class Log
     {
     public:
-        enum Target
+        enum Target : EnumT
         {
             STDOUT,
             FILE,
