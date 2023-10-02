@@ -15,10 +15,10 @@
 #include "ShaderParameters.hpp"
 #include "Material.hpp"
 #include "MaterialGenerator.hpp"
-#include "Mesh.hpp"
-#include "VertexArray.hpp"
 #include "Buffer.hpp"
 #include "VertexBuffer.hpp"
+#include "VertexArray.hpp"
+#include "Mesh.hpp"
 
 extern tr::Application &get_application();
 

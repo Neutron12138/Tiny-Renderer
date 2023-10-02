@@ -21,20 +21,20 @@ namespace tr
 
     int Application::run()
     {
-        m_window = std::make_unique<sf::RenderWindow>();
-        on_created();
+        TR_TRYS(
+            m_window = std::make_unique<sf::RenderWindow>();
+            on_created();
 
-        m_last_time = get_current_clocks();
-        while (get_window().isOpen())
-        {
-            calc_delta_time();
-            process_event();
-            on_process(m_delta_time);
-            on_draw();
-            window_display();
-        }
+            m_last_time = get_current_clocks();
+            while (get_window().isOpen()) {
+                calc_delta_time();
+                process_event();
+                on_process(m_delta_time);
+                on_draw();
+                window_display();
+            }
 
-        on_destroyed();
+            on_destroyed(););
 
         return 0;
     }

@@ -16,48 +16,48 @@
         ", function: \"", __FUNCTION__, \
         "\"]\n")
 
-#define TR_TRY(statement)                                                   \
-    try                                                                     \
-    {                                                                       \
-        statement;                                                          \
-    }                                                                       \
-    catch (const std::exception &e)                                         \
-    {                                                                       \
-        std::cout << e.what() << std::endl;                                 \
-    }                                                                       \
-    catch (const char *e)                                                   \
-    {                                                                       \
-        std::cout << e << std::endl;                                        \
-    }                                                                       \
-    catch (const std::string &e)                                            \
-    {                                                                       \
-        std::cout << e << std::endl;                                        \
-    }                                                                       \
-    catch (...)                                                             \
-    {                                                                       \
-        std::cout << "The program threw an unknown exception" << std::endl; \
+#define TR_TRY(statement)                                                               \
+    try                                                                                 \
+    {                                                                                   \
+        statement;                                                                      \
+    }                                                                                   \
+    catch (const std::exception &e)                                                     \
+    {                                                                                   \
+        std::cout << TR_DEBUG << e.what() << std::endl;                                 \
+    }                                                                                   \
+    catch (const char *e)                                                               \
+    {                                                                                   \
+        std::cout << TR_DEBUG << e << std::endl;                                        \
+    }                                                                                   \
+    catch (const std::string &e)                                                        \
+    {                                                                                   \
+        std::cout << TR_DEBUG << e << std::endl;                                        \
+    }                                                                                   \
+    catch (...)                                                                         \
+    {                                                                                   \
+        std::cout << TR_DEBUG << "The program threw an unknown exception" << std::endl; \
     }
 
-#define TR_TRYS(statements)                                                 \
-    try                                                                     \
-    {                                                                       \
-        statements                                                          \
-    }                                                                       \
-    catch (const std::exception &e)                                         \
-    {                                                                       \
-        std::cout << e.what() << std::endl;                                 \
-    }                                                                       \
-    catch (const char *e)                                                   \
-    {                                                                       \
-        std::cout << e << std::endl;                                        \
-    }                                                                       \
-    catch (const std::string &e)                                            \
-    {                                                                       \
-        std::cout << e << std::endl;                                        \
-    }                                                                       \
-    catch (...)                                                             \
-    {                                                                       \
-        std::cout << "The program threw an unknown exception" << std::endl; \
+#define TR_TRYS(statements)                                                             \
+    try                                                                                 \
+    {                                                                                   \
+        statements                                                                      \
+    }                                                                                   \
+    catch (const std::exception &e)                                                     \
+    {                                                                                   \
+        std::cout << TR_DEBUG << e.what() << std::endl;                                 \
+    }                                                                                   \
+    catch (const char *e)                                                               \
+    {                                                                                   \
+        std::cout << TR_DEBUG << e << std::endl;                                        \
+    }                                                                                   \
+    catch (const std::string &e)                                                        \
+    {                                                                                   \
+        std::cout << TR_DEBUG << e << std::endl;                                        \
+    }                                                                                   \
+    catch (...)                                                                         \
+    {                                                                                   \
+        std::cout << TR_DEBUG << "The program threw an unknown exception" << std::endl; \
     }
 
 namespace tr
@@ -90,7 +90,13 @@ namespace tr
     }
 
     template <typename RetT, typename... ArgsT>
-    RetT run_gl_function(RetT (*func)(ArgsT...), ArgsT &&...args)
+    RetT call_function_directly(RetT (*func)(ArgsT...), ArgsT &&...args)
+    {
+        return func(std::forward<ArgsT>(args)...);
+    }
+
+    template <typename RetT, typename... ArgsT>
+    RetT call_function(RetT (*func)(ArgsT...), ArgsT &&...args)
     {
         if (func == nullptr)
             throw std::runtime_error(
@@ -98,9 +104,15 @@ namespace tr
                     TR_DEBUG,
                     "Function cannot be a null pointer"));
 
-        RetT result = func(std::forward<ArgsT>(args)...);
-        GLenum error = glGetError();
+        return call_function_directly<RetT, ArgsT...>(std::forward<ArgsT>(args)...);
+    }
 
+    template <typename RetT, typename... ArgsT>
+    RetT run_gl_function(RetT (*func)(ArgsT...), ArgsT &&...args)
+    {
+        RetT result = call_function<RetT, ArgsT...>(std::forward<ArgsT>(args)...);
+
+        GLenum error = glGetError();
         if (error != GL_NO_ERROR)
             throw std::runtime_error(
                 to_string(

@@ -1,6 +1,7 @@
 #ifndef TR_APPLICATION_HPP
 #define TR_APPLICATION_HPP
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <memory>

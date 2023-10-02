@@ -83,6 +83,11 @@ namespace tr
 
             return *this;
         }
+
+        bool is_nullptr() const
+        {
+            return ParentType::get() == nullptr;
+        }
     };
 
     template <typename T>

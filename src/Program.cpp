@@ -130,6 +130,12 @@ namespace tr
         return location;
     }
 
+    void Program::use_program() const
+    {
+        if (data() != 0)
+            glUseProgram(data());
+    }
+
     void Program::delete_self()
     {
         if (!is_null())

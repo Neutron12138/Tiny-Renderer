@@ -10,8 +10,9 @@
 #include "GLResource.cpp"
 #include "Shader.cpp"
 #include "Program.cpp"
-#include "VertexArray.cpp"
+#include "Material.cpp"
 #include "Buffer.cpp"
 #include "VertexBuffer.cpp"
+#include "VertexArray.cpp"
 
 #endif

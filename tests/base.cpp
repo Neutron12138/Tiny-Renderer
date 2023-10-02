@@ -4,7 +4,7 @@
 class MyApp : public tr::Application
 {
 private:
-    tr::ProgramRes program;
+    tr::MaterialRes material;
     tr::VertexArrayRes va;
 
 public:
@@ -21,17 +21,23 @@ public:
         tr::log.get() << tr::get_bytes_from_file("base.exe").data() << std::endl;
         tr::log.get() << std::endl;
 
+        tr::ProgramRes program;
         program.create();
-        program->compile_from_file("shaders/base.vs", "shaders/base.fs");
+        TR_TRY(program->compile_from_file("shaders/base.vs", "shaders/base.fs"));
 
         std::vector<tr::DefaultVertex> vertices = {
             tr::DefaultVertex(),
         };
+
+        tr::MaterialRes material;
+        material.create(program);
     }
 
     void on_draw() override
     {
         clear_buffers();
+        material->use_material();
+        material->set_uniform("a", glm::vec2(1, 1));
     }
 };
 

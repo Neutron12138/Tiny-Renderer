@@ -91,8 +91,9 @@ namespace tr
     class Mesh : public BasicMesh<T>
     {
     public:
+        using VertexType = T;
         using SelfType = Mesh<VertexType>;
-        using ParentType = BasicMesh<T>;
+        using ParentType = BasicMesh<VertexType>;
 
     public:
         virtual VertexArrayRes generate_vertex_array(GLenum usage = GL_STATIC_DRAW) const = 0;
@@ -102,8 +103,9 @@ namespace tr
     class Mesh<DefaultVertex> : public BasicMesh<DefaultVertex>
     {
     public:
+        using VertexType = DefaultVertex;
         using SelfType = Mesh<VertexType>;
-        using ParentType = BasicMesh<DefaultVertex>;
+        using ParentType = BasicMesh<VertexType>;
 
     public:
         virtual VertexArrayRes generate_vertex_array(GLenum usage = GL_STATIC_DRAW) const

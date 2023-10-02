@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
     TR_TRYS(
         tr::Application &app = get_application();
-        return app.run(argc, argv);)
+        return app.run(argc, argv););
 }
 
 #endif

@@ -8,9 +8,6 @@
 
 namespace tr
 {
-    class TextureArrayRes;
-    class LightArrayRes;
-
     class ShaderParameters
     {
     public:
@@ -55,13 +52,7 @@ namespace tr
         Uniform<glm::mat4> VP = {"u_VP", glm::mat4(1.0f)};
         Uniform<glm::mat4> MVP = {"u_MVP", glm::mat4(1.0f)};
 
-        // Uniform<TextureArrayRes> textures = {"u_textures"};
-        // Uniform<LightArrayRes> lights = {"u_lights"};
-
         Uniform<glm::vec3> camera_pos = {"u_camera_pos"};
-
-    public:
-        virtual void set(const ProgramRes &program);
     };
 
     using ShaderParametersRes = Res<ShaderParameters>;

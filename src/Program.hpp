@@ -5,8 +5,6 @@
 
 namespace tr
 {
-    class VertexArrayRes;
-
     class Program : public GLResource
     {
     public:
@@ -40,7 +38,6 @@ namespace tr
 
     public:
         void use_program() const;
-        void draw_array(const VertexArrayRes &va, GLenum mode, GLint first, GLsizei count);
 
     public:
         void delete_self() override;
