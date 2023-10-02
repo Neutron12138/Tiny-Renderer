@@ -6,7 +6,10 @@
 namespace tr
 {
     Shader::Shader(Type type)
-        : ParentType(), m_type(type) {}
+        : ParentType(), m_type(type)
+    {
+        check_type(type);
+    }
 
     Shader::Shader(Type type, GLuint id)
         : ParentType(id), m_type(type)

@@ -5,6 +5,7 @@ class MyApp : public tr::Application
 {
 private:
     tr::ProgramRes program;
+    tr::VertexArrayRes va;
 
 public:
     void on_created() override
@@ -22,6 +23,10 @@ public:
 
         program.create();
         program->compile_from_file("shaders/base.vs", "shaders/base.fs");
+
+        std::vector<tr::DefaultVertex> vertices = {
+            tr::DefaultVertex(),
+        };
     }
 
     void on_draw() override

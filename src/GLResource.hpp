@@ -7,6 +7,10 @@
 
 namespace tr
 {
+    //
+    // GLResource
+    //
+
     class GLResource : public Resource
     {
     public:
@@ -32,6 +36,23 @@ namespace tr
 
     public:
         static void check_id(GLuint id);
+    };
+
+    //
+    // Bindable
+    //
+
+    class Bindable : public GLResource
+    {
+    public:
+        using ParentType = GLResource;
+
+    public:
+        Bindable(GLuint id = 0);
+
+    public:
+        virtual void bind() = 0;
+        virtual void unbind() = 0;
     };
 
 } // namespace tr

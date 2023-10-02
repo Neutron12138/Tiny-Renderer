@@ -8,8 +8,8 @@
 
 namespace tr
 {
-    class TextureRes;
-    class LightRes;
+    class TextureArrayRes;
+    class LightArrayRes;
 
     class ShaderParameters
     {
@@ -35,6 +35,14 @@ namespace tr
             ValueType value = {};
         };
 
+        enum DefaultLocation : UInt32
+        {
+            POSITION = 0,
+            COLOR = 1,
+            NORMAL = 2,
+            TEX_COORD = 3,
+        };
+
     public:
         Attribute<glm::vec3> position = {"a_position"};
         Attribute<glm::vec4> color = {"a_color"};
@@ -47,8 +55,8 @@ namespace tr
         Uniform<glm::mat4> VP = {"u_VP", glm::mat4(1.0f)};
         Uniform<glm::mat4> MVP = {"u_MVP", glm::mat4(1.0f)};
 
-        Uniform<std::vector<TextureRes>> textures = {"u_textures"};
-        Uniform<std::vector<LightRes>> lights = {"u_lights"};
+        // Uniform<TextureArrayRes> textures = {"u_textures"};
+        // Uniform<LightArrayRes> lights = {"u_lights"};
 
         Uniform<glm::vec3> camera_pos = {"u_camera_pos"};
 

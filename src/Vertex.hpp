@@ -31,8 +31,13 @@ namespace tr
         T texCoord = {};
     };
 
-    struct Vertex
-        : public VertexPosition<>,
+    struct TR_ALIGN Vertex
+    {
+    };
+
+    struct DefaultVertex
+        : public Vertex,
+          public VertexPosition<>,
           public VertexColor<>,
           public VertexNormal,
           public VertexTexCoord<>

@@ -17,7 +17,12 @@ namespace tr
         delete_self();
     }
 
-    void Program::attach_shaders(const std::vector<ShaderRes> &shaders)
+    const Program::ShaderContainer &Program::get_attached_shaders() const
+    {
+        return m_attached_shaders;
+    }
+
+    void Program::attach_shaders(const ShaderContainer &shaders)
     {
         if (shaders.size() == 0)
             throw std::runtime_error(

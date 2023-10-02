@@ -5,6 +5,10 @@
 
 namespace tr
 {
+    //
+    // GLResource
+    //
+
     GLResource::GLResource(GLuint id)
         : Resource(), m_data(id) {}
 
@@ -36,6 +40,13 @@ namespace tr
                     TR_DEBUG,
                     "OpenGL Object ID is a reserved value (is 0)"));
     }
+
+    //
+    // Bindable
+    //
+
+    Bindable::Bindable(GLuint id)
+        : GLResource(id) {}
 
 } // namespace tr
 

@@ -5,13 +5,16 @@
 
 namespace tr
 {
+    class VertexArrayRes;
+
     class Program : public GLResource
     {
     public:
+        using ShaderContainer = std::vector<ShaderRes>;
         using ParentType = GLResource;
 
     private:
-        std::vector<ShaderRes> m_attached_shaders;
+        ShaderContainer m_attached_shaders;
 
     public:
         Program();
@@ -19,10 +22,10 @@ namespace tr
         ~Program();
 
     public:
-        const std::vector<ShaderRes> &get_attached_shaders() const;
+        const ShaderContainer &get_attached_shaders() const;
 
     public:
-        void attach_shaders(const std::vector<ShaderRes> &shaders);
+        void attach_shaders(const ShaderContainer &shaders);
         void compile_from_string(const std::string &vsource, const std::string &fsource);
         void compile_from_string(const std::string &vsource, const std::string &fsource, const std::string &gsource);
         void compile_from_stream(std::istream &vis, std::istream &fis);
@@ -34,6 +37,10 @@ namespace tr
         GLint get_parameter(GLenum pname) const;
         GLint get_uniform_location(const std::string &name) const;
         GLint get_attrib_location(const std::string &name) const;
+
+    public:
+        void use_program() const;
+        void draw_array(const VertexArrayRes &va, GLenum mode, GLint first, GLsizei count);
 
     public:
         void delete_self() override;
