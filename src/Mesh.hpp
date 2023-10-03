@@ -8,6 +8,7 @@
 #include "Vertex.hpp"
 #include "VertexArray.hpp"
 #include "ShaderParameters.hpp"
+#include "VertexBuffer.hpp"
 
 #define TR_MESH_CHECK_INDEX                     \
     if (index >= m_vertices.size())             \
@@ -92,6 +93,7 @@ namespace tr
     {
     public:
         using VertexType = T;
+        using VertexContainer = std::vector<VertexType>;
         using SelfType = Mesh<VertexType>;
         using ParentType = BasicMesh<VertexType>;
 
@@ -100,52 +102,24 @@ namespace tr
     };
 
     template <>
-    class Mesh<DefaultVertex> : public BasicMesh<DefaultVertex>
+    class Mesh<Vertex> : public BasicMesh<Vertex>
     {
     public:
-        using VertexType = DefaultVertex;
+        using VertexType = Vertex;
         using SelfType = Mesh<VertexType>;
         using ParentType = BasicMesh<VertexType>;
 
     public:
-        virtual VertexArrayRes generate_vertex_array(GLenum usage = GL_STATIC_DRAW) const
-        {
-            const std::size_t s3f = sizeof(glm::vec3);
-            const std::size_t s4f = sizeof(glm::vec4);
-            const VertexContainer &vertices = get_vertices();
+        Mesh(const VertexContainer &vertices = {});
 
-            VertexBufferRes vb;
-            vb.create();
-            vb->generate_id();
-            vb->bind();
-            vb->set_data(vertices, usage);
-
-            vb->enable_vertex_attrib_array(ShaderParameters::POSITION);
-            vb->vertex_attrib_pointer(ShaderParameters::POSITION, 3, sizeof(DefaultVertex), 0);
-            vb->enable_vertex_attrib_array(ShaderParameters::COLOR);
-            vb->vertex_attrib_pointer(ShaderParameters::COLOR, 4, sizeof(DefaultVertex), s3f);
-            vb->enable_vertex_attrib_array(ShaderParameters::NORMAL);
-            vb->vertex_attrib_pointer(ShaderParameters::NORMAL, 3, sizeof(DefaultVertex), s3f + s4f);
-            vb->enable_vertex_attrib_array(ShaderParameters::TEX_COORD);
-            vb->vertex_attrib_pointer(ShaderParameters::TEX_COORD, 2, sizeof(DefaultVertex), s3f + s4f + s3f);
-
-            VertexArrayRes va;
-            va.create();
-            va->generate_id();
-            va->bind();
-            va->bind_buffer(vb);
-            va->unbind();
-
-            vb->unbind();
-
-            return va;
-        }
+    public:
+        virtual VertexArrayRes generate_vertex_array(GLenum usage = GL_STATIC_DRAW) const;
     };
 
     template <typename T>
     using MeshRes = Res<Mesh<T>>;
 
-    using DefaultMesh = Mesh<DefaultVertex>;
+    using DefaultMesh = Mesh<Vertex>;
     using DefaultMeshRes = Res<DefaultMesh>;
 
 } // namespace tr

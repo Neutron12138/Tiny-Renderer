@@ -8,7 +8,8 @@ namespace tr
     class VertexBuffer : public Buffer
     {
     public:
-        VertexBuffer(GLuint id = 0);
+        VertexBuffer();
+        VertexBuffer(GLuint id);
 
     public:
         void enable_vertex_attrib_array(GLuint index);
@@ -24,8 +25,7 @@ namespace tr
     };
 
     using VertexBufferRes = Res<VertexBuffer>;
-    
-} // namespace tr
 
+} // namespace tr
 
 #endif

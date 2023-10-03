@@ -5,6 +5,9 @@
 
 namespace tr
 {
+    VertexBuffer::VertexBuffer()
+        : Buffer(ARRAY_BUFFER) {}
+
     VertexBuffer::VertexBuffer(GLuint id)
         : Buffer(ARRAY_BUFFER, id) {}
 

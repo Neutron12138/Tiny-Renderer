@@ -13,34 +13,48 @@ private:
 public:
     void on_created() override
     {
+        // 初始化OpenGL
         tr::log.set_target(tr::Log::FILE);
         tr::log.get() << "Hello TR!" << std::endl;
         create_window(glm::ivec2(640, 480), "base");
         init_GL();
         tr::log.get() << "Initialized successfully!" << std::endl;
 
+        tr::register_debug_message_callback(tr::DebugMessager());
+
+        // 测试日志
         tr::log.get() << std::endl;
         tr::log.get() << tr::get_text_from_file("base.cpp") << std::endl;
         tr::log.get() << tr::get_bytes_from_file("base.exe").data() << std::endl;
         tr::log.get() << std::endl;
 
+        // 加载材质
         tr::ProgramRes program;
         program.create();
-        TR_TRY(program->compile_from_file("shaders/base.vs", "shaders/base.fs"));
+        program->compile_from_file("shaders/base.vs", "shaders/base.fs");
+        material.create(program);
 
-        std::vector<tr::DefaultVertex> vertices = {
-            tr::DefaultVertex(),
+        // 加载顶点数据
+        std::vector<tr::Vertex> vertices = {
+            glm::vec3(-0.5, 0.5, 0.0),
+            glm::vec3(-0.5, -0.5, 0.0),
+            glm::vec3(0.5, -0.5, 0.0),
+            glm::vec3(0.5, 0.5, 0.0),
         };
 
-        tr::MaterialRes material;
-        material.create(program);
+        // 创建顶点数组
+        tr::DefaultMeshRes mesh;
+        mesh.create(vertices);
+        va = mesh->generate_vertex_array();
     }
 
     void on_draw() override
     {
         clear_buffers();
         material->use_material();
-        material->set_uniform("a", glm::vec2(1, 1));
+        va->bind();
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+        va->unbind();
     }
 };
 

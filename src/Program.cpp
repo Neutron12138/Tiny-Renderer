@@ -42,25 +42,30 @@ namespace tr
 
     void Program::compile_from_string(const std::string &vsource, const std::string &fsource)
     {
-        tr::ShaderRes vshader = make_res<Shader>();
-        vshader->compile_from_string(vsource, Shader::VERTEX);
+        tr::ShaderRes vshader;
+        vshader.create(Shader::VERTEX);
+        vshader->compile_from_string(vsource);
 
-        tr::ShaderRes fshader = make_res<Shader>();
-        fshader->compile_from_string(fsource, Shader::FRAGMENT);
+        tr::ShaderRes fshader;
+        fshader.create(Shader::FRAGMENT);
+        fshader->compile_from_string(fsource);
 
         attach_shaders({vshader, fshader});
     }
 
     void Program::compile_from_string(const std::string &vsource, const std::string &fsource, const std::string &gsource)
     {
-        tr::ShaderRes vshader = make_res<Shader>();
-        vshader->compile_from_string(vsource, Shader::VERTEX);
+        tr::ShaderRes vshader;
+        vshader.create(Shader::VERTEX);
+        vshader->compile_from_string(vsource);
 
-        tr::ShaderRes fshader = make_res<Shader>();
-        fshader->compile_from_string(fsource, Shader::FRAGMENT);
+        tr::ShaderRes fshader;
+        fshader.create(Shader::FRAGMENT);
+        fshader->compile_from_string(fsource);
 
-        tr::ShaderRes gshader = make_res<Shader>();
-        gshader->compile_from_string(gsource, Shader::GEOMETRY);
+        tr::ShaderRes gshader;
+        fshader.create(Shader::GEOMETRY);
+        gshader->compile_from_string(gsource);
 
         attach_shaders({vshader, fshader, gshader});
     }

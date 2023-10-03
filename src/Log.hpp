@@ -36,7 +36,7 @@ namespace tr
         void flush();
     };
 
-    static Log log;
+    TR_DLL Log log;
 
 } // namespace tr
 
